@@ -311,7 +311,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   background: #151515;
   border-radius: 64px;
   text-align: center;
-  padding: 60px 50px;
+  padding: 0px 0px;
   margin-top: -60px;
 }
 
@@ -334,12 +334,13 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3 columns */
   grid-gap: 30px; /* Space between the grid items */
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .skill-item {
   background: #2c2c2c;
-  padding: 30px;
+  padding: 10px;
+  padding-top: 20px;
   border-radius: 10px;
   text-align: center;
   color: #51a3b8;
