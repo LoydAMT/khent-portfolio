@@ -6,7 +6,7 @@ export const Skills = () => {
             <div className="col-12">
               <div className="skill-bx wow zoomIn">
                 <h2>Skills</h2>
-                <p>Hi, I'm Khent, a passionate web developer focused on building responsive, user-centric websites and applications. I specialize in creating seamless user experiences with modern technologies and frameworks. Below are some of my core skills:</p>
+                <p>Hi, I'm Khent, a passionate web developer focused on building responsive, user-centric, and creative websites and applications. I specialize in creating seamless user experiences with modern technologies and frameworks. <p></p>Below are some of my core skills:</p>
                 <div className="skills-grid">
                   <div className="skill-item">
                     <h5>Front-End Development</h5>

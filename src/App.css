@@ -303,71 +303,198 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 
 /* Skill Section */
 .skill {
-  padding: 0 0 50px 0;
+  padding: 0 0 42.5px 0; /* Reduced by 15% */
   position: relative;
 }
 
 .skill-bx {
   background: #151515;
-  border-radius: 64px;
+  border-radius: 54.4px; /* Reduced by 15% */
   text-align: center;
-  padding: 0px 0px;
-  margin-top: -60px;
+  padding-top: 8.5px; /* Reduced by 15% */
+  padding-bottom: 25.5px; /* Reduced by 15% */
+  margin-top: 10px; /* Reduced by 15% */
+  transition: all 0.3s ease; /* Smooth transition for hover effect */
 }
 
 .skill h2 {
-  font-size: 45px;
+  font-size: 45px; /* No change to font size */
   font-weight: 700;
-  margin-bottom: 20px;
+  margin-bottom: 17px; /* Reduced by 15% */
+  transition: transform 0.3s ease; /* Smooth hover effect for title */
 }
 
 .skill p {
   color: #B8B8B8;
-  font-size: 18px;
+  font-size: 18px; /* No change to font size */
   letter-spacing: 0.8px;
-  line-height: 1.5em;
-  margin: 14px 0 50px 0;
+  line-height: 1.275em; /* Reduced by 15% */
+  margin: 11.9px 0 42.5px 0; /* Reduced by 15% */
 }
 
 /* Skills Grid Layout */
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3 columns */
-  grid-gap: 30px; /* Space between the grid items */
-  margin-top: 15px;
+  grid-gap: 25.5px; /* Reduced by 15% */
+  margin-top: 12.75px; /* Reduced by 15% */
+  margin-left: 46.75px; /* Reduced by 15% */
+  margin-right: 46.75px; /* Reduced by 15% */
+  margin-bottom: 12.75px; /* Reduced by 15% */
+  transition: all 0.3s ease; /* Smooth transition for grid */
 }
 
 .skill-item {
   background: #2c2c2c;
-  padding: 10px;
-  padding-top: 20px;
-  border-radius: 10px;
+  padding: 8.5px; /* Reduced by 15% */
+  border-radius: 8.5px; /* Reduced by 15% */
   text-align: center;
   color: #51a3b8;
+  position: relative;
+  overflow: hidden; /* Hide overflowing elements */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
 }
 
 .skill-item h5 {
-  font-size: 22px;
-  margin-bottom: 15px;
+  font-size: 22px; /* No change to font size */
+  margin-bottom: 12.75px; /* Reduced by 15% */
+  transition: color 0.3s ease; /* Smooth transition for hover effect */
 }
 
 .skill-item p {
-  font-size: 16px;
+  font-size: 16px; /* No change to font size */
   color: #b8b8b8;
+  transition: color 0.3s ease; /* Smooth transition for hover effect */
 }
 
+/* Hover Effects */
+.skill-bx:hover {
+  background: #222; /* Darken background on hover */
+  transform: scale(1.05); /* Slight scale effect */
+}
+
+.skill h2:hover {
+  transform: translateY(-5px); /* Slight upward move */
+}
+
+.skill-item:hover {
+  transform: translateY(-10px); /* Move up on hover */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); /* Add shadow for emphasis */
+}
+
+.skill-item:hover h5 {
+  color: #fff; /* Change text color on hover */
+}
+
+.skill-item:hover p {
+  color: #fff; /* Change text color on hover */
+}
+
+/* Media Queries */
+
+/* Tablet view (1024px and smaller) */
 @media (max-width: 1024px) {
   .skills-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    margin-left: 20px; /* Reduced margin */
+    margin-right: 20px; /* Reduced margin */
+  }
+
+  .skill h2 {
+    font-size: 38px; /* Reduced font size */
+  }
+
+  .skill p {
+    font-size: 16px; /* Reduced font size */
+  }
+
+  .skill-item h5 {
+    font-size: 18px; /* Reduced font size */
+  }
+
+  .skill-item p {
+    font-size: 14px; /* Reduced font size */
   }
 }
 
+/* Mobile view (464px and smaller) */
 @media (max-width: 464px) {
   .skills-grid {
-    grid-template-columns: 1fr; /* 1 column on mobile */
+    grid-template-columns: 1fr; /* 1 column */
+    margin-left: 15px; /* Reduced margin */
+    margin-right: 15px; /* Reduced margin */
+  }
+
+  .skill h2 {
+    font-size: 30px; /* Further reduced font size */
+  }
+
+  .skill p {
+    font-size: 14px; /* Further reduced font size */
+  }
+
+  .skill-item h5 {
+    font-size: 16px; /* Further reduced font size */
+  }
+
+  .skill-item p {
+    font-size: 12px; /* Further reduced font size */
   }
 }
 
+
+
+/* Media Queries */
+
+/* Tablet view (1024px and smaller) */
+@media (max-width: 1024px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    margin-left: 20px; /* Reduced margin */
+    margin-right: 20px; /* Reduced margin */
+  }
+
+  .skill h2 {
+    font-size: 38px; /* Reduced font size */
+  }
+
+  .skill p {
+    font-size: 16px; /* Reduced font size */
+  }
+
+  .skill-item h5 {
+    font-size: 18px; /* Reduced font size */
+  }
+
+  .skill-item p {
+    font-size: 14px; /* Reduced font size */
+  }
+}
+
+/* Mobile view (464px and smaller) */
+@media (max-width: 464px) {
+  .skills-grid {
+    grid-template-columns: 1fr; /* 1 column */
+    margin-left: 15px; /* Reduced margin */
+    margin-right: 15px; /* Reduced margin */
+  }
+
+  .skill h2 {
+    font-size: 30px; /* Further reduced font size */
+  }
+
+  .skill p {
+    font-size: 14px; /* Further reduced font size */
+  }
+
+  .skill-item h5 {
+    font-size: 16px; /* Further reduced font size */
+  }
+
+  .skill-item p {
+    font-size: 12px; /* Further reduced font size */
+  }
+}
 
 
 /************ Projects Css ************/
