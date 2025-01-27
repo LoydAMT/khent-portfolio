@@ -32,6 +32,12 @@ export const NavBar = () => {
     setActiveLink(value);
   }
 
+  const handleGmailConnect = () => {
+    // Open Gmail with a pre-filled message
+    const mailtoLink = `mailto:khentlloyd3@gmail.com?subject=Let’s Connect&body=Hi Khent,`;
+    window.location.href = mailtoLink;
+  }
+
   return (
     <Router>
       <Navbar expand="md" className={scrolled ? "scrolled" : ""}>
@@ -51,13 +57,19 @@ export const NavBar = () => {
             </Nav>
             <span className="navbar-text">
               <div className="social-icon">
-                <a href="#"><img src={navIcon1} alt="" /></a>
-                <a href="#"><img src={navIcon2} alt="" /></a>
-                <a href="#"><img src={navIcon3} alt="" /></a>
+                <a href="https://www.linkedin.com/in/khent-lloyd-cases-b73586253/" target="_blank" rel="noopener noreferrer">
+                  <img src={navIcon1} alt="LinkedIn" />
+                </a>
+                <a href="https://www.facebook.com/khentl.ac" target="_blank" rel="noopener noreferrer">
+                  <img src={navIcon2} alt="Facebook" />
+                </a>
+                <a href="https://www.instagram.com/khentlloyddx/" target="_blank" rel="noopener noreferrer">
+                  <img src={navIcon3} alt="Instagram" />
+                </a>
               </div>
-              <HashLink to='#connect'>
-                <button className="vvd"><span>Let’s Connect</span></button>
-              </HashLink>
+              <button className="vvd" onClick={handleGmailConnect}>
+                <span>Let’s Connect</span>
+              </button>
             </span>
           </Navbar.Collapse>
         </Container>
