@@ -498,7 +498,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 .project {
   padding: 80px 0;
   position: relative;
-  background: transparent;
+  background: tr;
 }
 
 .project h2 {
@@ -696,4 +696,13 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   bottom: 0;
   width: 40%;
   z-index: -4;
+}
+
+
+.App {
+  position: relative;
+  z-index: 1;
+  background-color: yellow; /* Ensure no background color blocks the particles */
+  color: #fff; /* Adjust text color for visibility */
+  min-height: 100vh;
 }
