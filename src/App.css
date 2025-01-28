@@ -307,7 +307,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 }
 
 .skill-bx {
-  background: #151515;
+  background: rgba(21, 21, 21, 0.5); /* Adjust the last value for opacity */
   border-radius: 54.4px; /* Reduced by 15% */
   text-align: center;
   padding-top: 8.5px; /* Reduced by 15% */
@@ -344,7 +344,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 }
 
 .skill-item {
-  background: #2c2c2c;
+  background: rgba(21, 21, 21, 0.8); /* Adjust the last value for opacity */
   padding: 8.5px; /* Reduced by 15% */
   border-radius: 8.5px; /* Reduced by 15% */
   text-align: center;
@@ -368,7 +368,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 
 /* Hover Effects */
 .skill-bx:hover {
-  background: #222; /* Darken background on hover */
+  background: rgba(21, 21, 21, 0.65); /* Adjust the last value for opacity */
   transform: scale(1.05); /* Slight scale effect */
 }
 
@@ -659,12 +659,14 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 }
 
 .tech-stack-bx {
-  background: #151515;
+  background: rgba(21, 21, 21, 0.5); /* Adjust the last value for opacity */
   border-radius: 64px;
   text-align: center;
   padding: 60px 50px;
   margin-top: -60px;
 }
+
+
 
 .tech-stack h2 {
   font-size: 45px;
@@ -702,7 +704,6 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 .App {
   position: relative;
   z-index: 1;
-  background-color: yellow; /* Ensure no background color blocks the particles */
   color: #fff; /* Adjust text color for visibility */
   min-height: 100vh;
 }
