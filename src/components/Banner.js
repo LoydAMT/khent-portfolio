@@ -6,78 +6,76 @@ import 'animate.css';
 import TrackVisibility from 'react-on-screen';
 
 export const Banner = () => {
-  const [loopNum, setLoopNum] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [text, setText] = useState('');
-  const [delta, setDelta] = useState(300 - Math.random() * 100);
-  const [index, setIndex] = useState(1);
-  const toRotate = [ "Web Developer", "Web Designer", "UI/UX Designer" ];
-  const period = 2000;
+  const [currentSkillIndex, setCurrentSkillIndex] = useState(0);
+  const skills = ["Web Developer", "Web Designer", "UI/UX Designer"];
+  const rotationDuration = 2000; // Duration for each rotation in milliseconds
 
   useEffect(() => {
-    let ticker = setInterval(() => {
-      tick();
-    }, delta);
+    const interval = setInterval(() => {
+      setCurrentSkillIndex((prevIndex) => (prevIndex + 1) % skills.length);
+    }, rotationDuration);
 
-    return () => { clearInterval(ticker) };
-  }, [text])
-
-  const tick = () => {
-    let i = loopNum % toRotate.length;
-    let fullText = toRotate[i];
-    let updatedText = isDeleting ? fullText.substring(0, text.length - 1) : fullText.substring(0, text.length + 1);
-
-    setText(updatedText);
-
-    if (isDeleting) {
-      setDelta(prevDelta => prevDelta / 2);
-    }
-
-    if (!isDeleting && updatedText === fullText) {
-      setIsDeleting(true);
-      setIndex(prevIndex => prevIndex - 1);
-      setDelta(period);
-    } else if (isDeleting && updatedText === '') {
-      setIsDeleting(false);
-      setLoopNum(loopNum + 1);
-      setIndex(1);
-      setDelta(500);
-    } else {
-      setIndex(prevIndex => prevIndex + 1);
-    }
-  }
+    return () => clearInterval(interval);
+  }, []);
 
   const handleGmailConnect = () => {
     // Open Gmail with a pre-filled message
-    const mailtoLink = `mailto:khentlloyd3@gmail.com?subject=Let’s Connect&body=Hi Khent,`;
+    const mailtoLink = "mailto:khentlloyd3@gmail.com?subject=Let’s Connect&body=Hi Khent,";
     window.location.href = mailtoLink;
-  }
+  };
 
   return (
     <section className="banner" id="home">
       <Container>
-        <Row className="aligh-items-center">
+        <Row className="align-items-center">
           <Col xs={12} md={6} xl={7}>
             <TrackVisibility>
-              {({ isVisible }) =>
-              <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
-                <span className="tagline">Welcome to my Portfolio</span>
-                <h1>{`Hi! I'm Khent`} <span className="txt-rotate" dataPeriod="1000" data-rotate='[ "Web Developer", "Web Designer", "UI/UX Designer" ]'><span className="wrap">{text}</span></span></h1>
-                <p>I am Khent, a passionate Web Developer with a keen interest in crafting user-friendly designs and innovative solutions to solve real-world problems. Welcome to my portfolio!</p>
-                <button onClick={handleGmailConnect}>Let’s Connect <ArrowRightCircle size={25} /></button>
-              </div>}
+              {({ isVisible }) => (
+                <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
+                  <span className="tagline">Welcome to my Portfolio</span>
+                  <h1>
+                    Hi! I'm Khent{" "}
+                    <div className="cube-container">
+                      <div
+                        className="cube"
+                        style={{
+                          transform: `rotateX(${-currentSkillIndex * 90}deg)`,
+                          transition: "transform 1s",
+                        }}
+                      >
+                        {skills.map((skill, index) => (
+                          <div
+                            key={index}
+                            className={`cube-face ${index === currentSkillIndex ? "active" : ""}`}
+                            style={{ transform: `rotateX(${index * 90}deg) translateZ(50px)` }}
+                          >
+                            {skill}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </h1>
+                  <p>
+                    I am Khent, a passionate Web Developer with a keen interest in crafting user-friendly designs and innovative solutions to solve real-world problems. Welcome to my portfolio!
+                  </p>
+                  <button onClick={handleGmailConnect}>
+                    Let’s Connect <ArrowRightCircle size={25} />
+                  </button>
+                </div>
+              )}
             </TrackVisibility>
           </Col>
           <Col xs={12} md={6} xl={5}>
             <TrackVisibility>
-              {({ isVisible }) =>
+              {({ isVisible }) => (
                 <div className={isVisible ? "animate__animated animate__zoomIn" : ""}>
-                  <img src={headerImg} alt="Header Img"/>
-                </div>}
+                  <img src={headerImg} alt="Header Img" />
+                </div>
+              )}
             </TrackVisibility>
           </Col>
         </Row>
       </Container>
     </section>
-  )
-}
+  );
+};
