@@ -4,11 +4,8 @@ import meter3 from "../assets/img/meter3.svg";
 import meter4 from "../assets/img/meter4.svg";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import arrow1 from "../assets/img/arrow1.svg";
-import arrow2 from "../assets/img/arrow2.svg";
 import colorSharp from "../assets/img/color-sharp.png";
 
-// Renamed from "Skills" to "TechStack"
 export const TechStack = () => {
   const responsive = {
     superLargeDesktop: {
@@ -31,44 +28,43 @@ export const TechStack = () => {
 
   return (
     <section className="tech-stack" id="TechStack">
-    <div className="container">
-      <div className="row">
-        <div className="col-12">
-          <div className="tech-stack-bx wow zoomIn">
-            <h2>Tech Stack</h2>
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-              <br />
-              Lorem Ipsum has been the industry's standard dummy text.
-            </p>
-            <Carousel
-              responsive={responsive}
-              infinite={true}
-              className="owl-carousel owl-theme tech-stack-slider"
-            >
-              <div className="item">
-                <img src={meter1} alt="Image" />
-                <h5>React</h5>
-              </div>
-              <div className="item">
-                <img src={meter2} alt="Image" />
-                <h5>Firebase</h5>
-              </div>
-              <div className="item">
-                <img src={meter3} alt="Image" />
-                <h5>CSS</h5>
-              </div>
-              <div className="item">
-                <img src={meter4} alt="Image" />
-                <h5>Paymongo</h5>
-              </div>
-            </Carousel>
+      <div className="container">
+        <div className="row">
+          <div className="col-12">
+            <div className="tech-stack-bx wow zoomIn">
+              <h2>Tech Stack</h2>
+              <p>
+                I specialize in a comprehensive suite of technologies to build robust and scalable web applications.
+                <br />
+                From front-end interactivity to back-end logic, here are the tools I use to bring ideas to life.
+              </p>
+              <Carousel
+                responsive={responsive}
+                infinite={true}
+                className="owl-carousel owl-theme tech-stack-slider"
+              >
+                <div className="item">
+                  <img src={meter1} alt="React" />
+                  <h5>React</h5>
+                </div>
+                <div className="item">
+                  <img src={meter2} alt="Firebase" />
+                  <h5>Firebase</h5>
+                </div>
+                <div className="item">
+                  <img src={meter3} alt="CSS" />
+                  <h5>CSS</h5>
+                </div>
+                <div className="item">
+                  <img src={meter4} alt="Paymongo" />
+                  <h5>Paymongo</h5>
+                </div>
+              </Carousel>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <img className="background-image-left" src={colorSharp} alt="Image" />
-  </section>
-  
+      <img className="background-image-left" src={colorSharp} alt="Image" />
+    </section>
   );
 };
