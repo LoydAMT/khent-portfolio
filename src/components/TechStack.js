@@ -20,6 +20,8 @@ import {
   SiClaudecode,
 } from "react-icons/si";
 import { FaAws, FaCss3Alt } from "react-icons/fa6";
+import 'animate.css';
+import TrackVisibility from 'react-on-screen';
 
 const rows = [
   {
@@ -89,28 +91,32 @@ export const TechStack = () => {
       <div className="container">
         <div className="row">
           <div className="col-12">
-            <div className="tech-stack-bx wow zoomIn">
-              <h2>Tech Stack</h2>
-              <p>
-                I specialize in a comprehensive suite of technologies to build robust and scalable web applications.
-                <br />
-                From front-end interactivity to back-end logic, here are the tools I use to bring ideas to life.
-              </p>
-              <div className="tech-marquee">
-                {rows.map((row, rowIndex) => (
-                  <div className={`tech-marquee-row direction-${row.direction}`} key={rowIndex}>
-                    <div
-                      className="tech-marquee-track"
-                      style={{ animationDuration: `${row.duration}s` }}
-                    >
-                      {[...row.items, ...row.items].map((tech, i) => (
-                        <TechTile key={`${tech.name}-${i}`} {...tech} />
-                      ))}
-                    </div>
+            <TrackVisibility>
+              {({ isVisible }) => (
+                <div className={`tech-stack-bx ${isVisible ? "animate__animated animate__fadeIn" : ""}`}>
+                  <h2>Tech Stack</h2>
+                  <p>
+                    I specialize in a comprehensive suite of technologies to build robust and scalable web applications.
+                    <br />
+                    From front-end interactivity to back-end logic, here are the tools I use to bring ideas to life.
+                  </p>
+                  <div className="tech-marquee">
+                    {rows.map((row, rowIndex) => (
+                      <div className={`tech-marquee-row direction-${row.direction}`} key={rowIndex}>
+                        <div
+                          className="tech-marquee-track"
+                          style={{ animationDuration: `${row.duration}s` }}
+                        >
+                          {[...row.items, ...row.items].map((tech, i) => (
+                            <TechTile key={`${tech.name}-${i}`} {...tech} />
+                          ))}
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
+                </div>
+              )}
+            </TrackVisibility>
           </div>
         </div>
       </div>
