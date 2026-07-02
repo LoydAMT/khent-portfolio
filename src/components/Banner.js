@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import headerImg from "../assets/img/header-img.svg";
+import headerImg from "../assets/img/RED_2x2.png";
 import { ArrowRightCircle } from 'react-bootstrap-icons';
 import 'animate.css';
 import TrackVisibility from 'react-on-screen';
 
+const skills = ["Computer Engineer", "Full Stack Developer", "Embedded Systems Builder"];
+const rotationDuration = 2000; // Duration for each rotation in milliseconds
+
 export const Banner = () => {
   const [currentSkillIndex, setCurrentSkillIndex] = useState(0);
-  const skills = ["Web Developer", "Web Designer", "UI/UX Designer"];
-  const rotationDuration = 2000; // Duration for each rotation in milliseconds
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -32,7 +33,7 @@ export const Banner = () => {
             <TrackVisibility>
               {({ isVisible }) => (
                 <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
-                  <span className="tagline">Welcome to my Portfolio</span>
+                  <span className="tagline">Cebu City, PH · Cum Laude, B.S. Computer Engineering</span>
                   <h1>
                     Hi! I'm Khent{" "}
                     <div className="cube-container">
@@ -56,23 +57,22 @@ export const Banner = () => {
                     </div>
                   </h1>
                   <p>
-                    I am Khent, a passionate Web Developer with a keen interest in crafting user-friendly designs and innovative solutions to solve real-world problems. Welcome to my portfolio!
+                    Cum Laude Computer Engineering graduate from Cebu Institute of Technology - University, based in Cebu City. I build secure, scalable applications with JavaScript, React, and Next.js, and pair that with a strong technical grasp of embedded systems and networking - from serverless AWS backends to autonomous robotics. I'm committed to solving real-world problems through clean, innovative code.
                   </p>
-                  <button onClick={handleGmailConnect}>
-                    Let’s Connect <ArrowRightCircle size={25} />
-                  </button>
+                  <div className="banner-cta">
+                    <button onClick={handleGmailConnect}>
+                      Let’s Connect <ArrowRightCircle size={25} />
+                    </button>
+                    <a href="#experience" className="banner-secondary-btn">
+                      View Experience
+                    </a>
+                  </div>
                 </div>
               )}
             </TrackVisibility>
           </Col>
           <Col xs={12} md={6} xl={5}>
-            <TrackVisibility>
-              {({ isVisible }) => (
-                <div className={isVisible ? "animate__animated animate__zoomIn" : ""}>
-                  <img src={headerImg} alt="Header Img" />
-                </div>
-              )}
-            </TrackVisibility>
+            <img src={headerImg} alt="Header Img" />
           </Col>
         </Row>
       </Container>

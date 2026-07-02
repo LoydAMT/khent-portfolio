@@ -1,31 +1,89 @@
-import meter1 from "../assets/img/meter1.svg";
-import meter2 from "../assets/img/meter2.svg";
-import meter3 from "../assets/img/meter3.svg";
-import meter4 from "../assets/img/meter4.svg";
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
 import colorSharp from "../assets/img/color-sharp.png";
+import {
+  SiReact,
+  SiNextdotjs,
+  SiTypescript,
+  SiJavascript,
+  SiTailwindcss,
+  SiNodedotjs,
+  SiDjango,
+  SiPython,
+  SiDotnet,
+  SiHtml5,
+  SiCplusplus,
+  SiC,
+  SiFirebase,
+  SiSupabase,
+  SiGit,
+  SiGithub,
+  SiRaspberrypi,
+  SiClaudecode,
+} from "react-icons/si";
+import { FaAws, FaCss3Alt } from "react-icons/fa6";
+
+const rows = [
+  {
+    direction: "left",
+    duration: 26,
+    items: [
+      { name: "React", Icon: SiReact, color: "#61DAFB" },
+      { name: "Next.js", Icon: SiNextdotjs, color: "#000000" },
+      { name: "TypeScript", Icon: SiTypescript, color: "#3178C6" },
+      { name: "JavaScript", Icon: SiJavascript, color: "#F0DB4F" },
+      { name: "Tailwind CSS", Icon: SiTailwindcss, color: "#06B6D4" },
+      { name: "Node.js", Icon: SiNodedotjs, color: "#339933" },
+      { name: "Django", Icon: SiDjango, color: "#092E20" },
+    ],
+  },
+  {
+    direction: "right",
+    duration: 30,
+    items: [
+      { name: "Python", Icon: SiPython, color: "#3776AB" },
+      { name: ".NET", Icon: SiDotnet, color: "#512BD4" },
+      { name: "HTML5", Icon: SiHtml5, color: "#E34F26" },
+      { name: "CSS3", Icon: FaCss3Alt, color: "#1572B6" },
+      { name: "C++", Icon: SiCplusplus, color: "#00599C" },
+      { name: "C", Icon: SiC, color: "#5C6BC0" },
+      { name: "AWS", Icon: FaAws, color: "#FF9900" },
+    ],
+  },
+  {
+    direction: "left",
+    duration: 24,
+    items: [
+      { name: "Firebase", Icon: SiFirebase, color: "#FFCA28" },
+      { name: "Supabase", Icon: SiSupabase, color: "#3FCF8E" },
+      { name: "Git", Icon: SiGit, color: "#F05032" },
+      { name: "GitHub", Icon: SiGithub, color: "#181717" },
+      { name: "Raspberry Pi", Icon: SiRaspberrypi, color: "#A22846" },
+      { name: "Claude Code", Icon: SiClaudecode, color: "#D97757" },
+    ],
+  },
+];
+
+const hexToRgba = (hex, alpha) => {
+  const value = hex.replace("#", "");
+  const bigint = parseInt(value, 16);
+  const r = (bigint >> 16) & 255;
+  const g = (bigint >> 8) & 255;
+  const b = bigint & 255;
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};
+
+const TechTile = ({ name, Icon, color }) => (
+  <div className="item">
+    <div
+      className="tech-icon-tile"
+      style={{ backgroundColor: hexToRgba(color, 0.1), border: `1px solid ${hexToRgba(color, 0.25)}` }}
+    >
+      <Icon color={color} size={34} />
+    </div>
+    <h5>{name}</h5>
+  </div>
+);
 
 export const TechStack = () => {
-  const responsive = {
-    superLargeDesktop: {
-      breakpoint: { max: 4000, min: 3000 },
-      items: 5,
-    },
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-    },
-  };
-
   return (
     <section className="tech-stack" id="TechStack">
       <div className="container">
@@ -38,33 +96,25 @@ export const TechStack = () => {
                 <br />
                 From front-end interactivity to back-end logic, here are the tools I use to bring ideas to life.
               </p>
-              <Carousel
-                responsive={responsive}
-                infinite={true}
-                className="owl-carousel owl-theme tech-stack-slider"
-              >
-                <div className="item">
-                  <img src={meter1} alt="React" />
-                  <h5>React</h5>
-                </div>
-                <div className="item">
-                  <img src={meter2} alt="Firebase" />
-                  <h5>Firebase</h5>
-                </div>
-                <div className="item">
-                  <img src={meter3} alt="CSS" />
-                  <h5>CSS</h5>
-                </div>
-                <div className="item">
-                  <img src={meter4} alt="Paymongo" />
-                  <h5>Paymongo</h5>
-                </div>
-              </Carousel>
+              <div className="tech-marquee">
+                {rows.map((row, rowIndex) => (
+                  <div className={`tech-marquee-row direction-${row.direction}`} key={rowIndex}>
+                    <div
+                      className="tech-marquee-track"
+                      style={{ animationDuration: `${row.duration}s` }}
+                    >
+                      {[...row.items, ...row.items].map((tech, i) => (
+                        <TechTile key={`${tech.name}-${i}`} {...tech} />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <img className="background-image-left" src={colorSharp} alt="Image" />
+      <img className="background-image-left" src={colorSharp} alt="" />
     </section>
   );
 };

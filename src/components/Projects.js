@@ -1,48 +1,58 @@
 import { Container, Row, Col, Tab, Nav } from "react-bootstrap";
 import { ProjectCard } from "./ProjectCard";
-import projImg1 from "../assets/img/project-img1.png";
-import projImg2 from "../assets/img/project-img2.png";
-import projImg3 from "../assets/img/project-img3.png";
+import { Robot, PatchQuestion, FileEarmarkText } from "react-bootstrap-icons";
+import sagipImg from "../assets/img/project-sagip.jpg";
+import swiftSailImg from "../assets/img/project-swiftsail.jpg";
+import gourmetImg from "../assets/img/project-gourmet.jpg";
+import weatherImg from "../assets/img/project-weather.jpg";
 import colorSharp2 from "../assets/img/color-sharp2.png";
 import 'animate.css';
 import TrackVisibility from 'react-on-screen';
 
 export const Projects = () => {
-  const projects = [
+  const featured = [
     {
-      title: "Gourmet Gamble",
-      description: "Recipe Sharing App",
-      imgUrl: projImg1,
-      url: "https://gourmetgamble0.vercel.app/",
+      title: "TIDE-Y",
+      description: "Raspberry Pi 5 · YOLOv8 · 6DOF Robotic Arm",
+      icon: Robot,
     },
     {
-      title: "Sagpip Pilipinas - SGP",
-      description: "Disaster Response",
-      imgUrl: projImg2,
+      title: "Sagip Pilipinas",
+      description: "Next.js · TypeScript · Tailwind CSS",
+      imgUrl: sagipImg,
       url: "https://sagip-pilipinas.vercel.app/",
     },
     {
-      title: "SwiftSail Ferries",
-      description: "Ferry Ticketing System",
-      imgUrl: projImg2,
+      title: "Swift Sail",
+      description: "React.js · JavaScript · Lead Developer",
+      imgUrl: swiftSailImg,
       url: "https://swiftsail-ferries.vercel.app/",
+    },
+  ];
+
+  const miniProjects = [
+    {
+      title: "Gourmet Gamble",
+      description: "Recipe Sharing App",
+      imgUrl: gourmetImg,
+      url: "https://gourmetgamble0.vercel.app/",
     },
     {
       title: "Quiz App V by KLC",
       description: "Quiz Application",
-      imgUrl: projImg3,
+      icon: PatchQuestion,
       url: "https://quizappfor-v-by-klc.vercel.app/",
     },
     {
       title: "Weather by KLC",
       description: "Weather Application",
-      imgUrl: projImg1,
+      imgUrl: weatherImg,
       url: "https://weatherby-klc.vercel.app/",
     },
     {
       title: "Shared Docs by KLC",
       description: "Document Sharing App",
-      imgUrl: projImg2,
+      icon: FileEarmarkText,
       url: "https://shareddocs-klc.vercel.app/",
     },
   ];
@@ -56,11 +66,11 @@ export const Projects = () => {
               {({ isVisible }) => (
                 <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
                   <h2>Projects</h2>
-                  <p>Explore a selection of my projects, ranging from web applications like recipe sharing and ferry ticketing systems to quiz apps and weather forecasting tools. Each project showcases my passion for creating practical solutions.</p>
+                  <p>Explore a selection of my projects, from an autonomous beach-cleaning robot and a disaster response platform to a ferry ticketing system and other web apps. Each project showcases my passion for creating practical solutions.</p>
                   <Tab.Container id="projects-tabs" defaultActiveKey="first">
                     <Nav variant="pills" className="nav-pills mb-5 justify-content-center align-items-center" id="pills-tab">
                       <Nav.Item>
-                        <Nav.Link eventKey="first">Web Apps</Nav.Link>
+                        <Nav.Link eventKey="first">Featured Projects</Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
                         <Nav.Link eventKey="second">Mini Projects</Nav.Link>
@@ -69,15 +79,15 @@ export const Projects = () => {
                     <Tab.Content id="slideInUp" className={isVisible ? "animate__animated animate__slideInUp" : ""}>
                       <Tab.Pane eventKey="first">
                         <Row>
-                          {projects.slice(0, 3).map((project, index) => (
+                          {featured.map((project, index) => (
                             <ProjectCard key={index} {...project} />
                           ))}
                         </Row>
                       </Tab.Pane>
                       <Tab.Pane eventKey="second">
                         <Row>
-                          {projects.slice(3).map((project, index) => (
-                            <ProjectCard key={index + 3} {...project} />
+                          {miniProjects.map((project, index) => (
+                            <ProjectCard key={index} {...project} />
                           ))}
                         </Row>
                       </Tab.Pane>

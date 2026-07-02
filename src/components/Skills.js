@@ -1,3 +1,44 @@
+import { CodeSlash, HddNetwork, CloudFill, Cpu, Database, Git } from "react-bootstrap-icons";
+
+const skillCategories = [
+  {
+    icon: CodeSlash,
+    title: "Front-End Development",
+    blurb: "Dynamic, responsive interfaces built with modern component-driven frameworks.",
+    tags: ["React", "Next.js", "TypeScript", "Tailwind CSS", "JavaScript"],
+  },
+  {
+    icon: HddNetwork,
+    title: "Back-End Development",
+    blurb: "Secure, well-structured server-side applications and APIs.",
+    tags: ["Django", ".NET", "Node.js", "Python"],
+  },
+  {
+    icon: CloudFill,
+    title: "Cloud & Serverless",
+    blurb: "High-availability, HIPAA-compliant serverless backends on AWS.",
+    tags: ["AWS CDK", "DynamoDB", "Cognito"],
+  },
+  {
+    icon: Cpu,
+    title: "Embedded Systems",
+    blurb: "Hardware-integrated robotics and computer-vision projects.",
+    tags: ["Raspberry Pi 5", "C", "C++", "YOLOv8"],
+  },
+  {
+    icon: Database,
+    title: "Database Management",
+    blurb: "Structured and NoSQL data storage, modeling, and retrieval.",
+    tags: ["SQL", "Firebase", "Supabase", "MS Access"],
+  },
+  {
+    icon: Git,
+    title: "Developer Tools",
+    blurb: "Source control and an AI-assisted development workflow.",
+    tags: ["Git", "GitHub", "VS Code", "Visual Studio 2022", "Gemini", "Claude Code"],
+  },
+];
+
 export const Skills = () => {
     return (
       <section className="skill" id="skills">
@@ -6,32 +47,22 @@ export const Skills = () => {
             <div className="col-12">
               <div className="skill-bx wow zoomIn">
                 <h2>Skills</h2>
-                <p>Hi, I'm Khent, a passionate web developer focused on building responsive, user-centric, and creative websites and applications. I specialize in creating seamless user experiences with modern technologies and frameworks. <p></p>Below are some of my core skills:</p>
+                <p>Hi, I'm Khent, a Computer Engineer building secure, scalable applications with a strong technical grasp of embedded systems and networking.<br />Below are some of my core skills:</p>
                 <div className="skills-grid">
-                  <div className="skill-item">
-                    <h5>Front-End Development</h5>
-                    <p>Proficient in React, HTML, CSS, and JavaScript, delivering dynamic and responsive websites.</p>
-                  </div>
-                  <div className="skill-item">
-                    <h5>Back-End Development</h5>
-                    <p>Skilled in Node.js, Express, and database management (MySQL, MongoDB) to build efficient server-side applications.</p>
-                  </div>
-                  <div className="skill-item">
-                    <h5>UI/UX Design</h5>
-                    <p>Experienced in designing intuitive user interfaces with tools like Figma and Adobe XD to ensure a smooth user experience.</p>
-                  </div>
-                  <div className="skill-item">
-                    <h5>Version Control</h5>
-                    <p>Proficient in Git and GitHub for managing source code and collaborating with teams on projects.</p>
-                  </div>
-                  <div className="skill-item">
-                    <h5>Responsive Design</h5>
-                    <p>Experience in creating adaptive and mobile-friendly websites using modern frameworks and techniques.</p>
-                  </div>
-                  <div className="skill-item">
-                    <h5>Database Management</h5>
-                    <p>Knowledge of working with relational and NoSQL databases such as MySQL, MongoDB, and PostgreSQL.</p>
-                  </div>
+                  {skillCategories.map(({ icon: Icon, title, blurb, tags }) => (
+                    <div className="skill-item" key={title}>
+                      <div className="skill-item-icon">
+                        <Icon size={24} />
+                      </div>
+                      <h5>{title}</h5>
+                      <p>{blurb}</p>
+                      <div className="skill-tags">
+                        {tags.map((tag) => (
+                          <span className="skill-tag" key={tag}>{tag}</span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -40,4 +71,3 @@ export const Skills = () => {
       </section>
     );
   };
-  

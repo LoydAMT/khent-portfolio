@@ -18,7 +18,7 @@ export const Footer = () => {
               <a href="https://www.facebook.com/khentl.ac" target="_blank" rel="noopener noreferrer"><img src={navIcon2} alt="Facebook" /></a>
               <a href="https://www.instagram.com/khentlloyddx/" target="_blank" rel="noopener noreferrer"><img src={navIcon3} alt="Instagram" /></a>
             </div>
-            <p>Copyright 2025. All Rights Reserved</p>
+            <p>Copyright 2026. All Rights Reserved</p>
           </Col>
         </Row>
       </Container>
