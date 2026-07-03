@@ -1,4 +1,3 @@
-import colorSharp from "../assets/img/color-sharp.png";
 import {
   SiReact,
   SiNextdotjs,
@@ -120,7 +119,6 @@ export const TechStack = () => {
           </div>
         </div>
       </div>
-      <img className="background-image-left" src={colorSharp} alt="" />
     </section>
   );
 };

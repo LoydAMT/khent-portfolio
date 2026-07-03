@@ -5,7 +5,6 @@ import sagipImg from "../assets/img/project-sagip.jpg";
 import swiftSailImg from "../assets/img/project-swiftsail.jpg";
 import gourmetImg from "../assets/img/project-gourmet.jpg";
 import weatherImg from "../assets/img/project-weather.jpg";
-import colorSharp2 from "../assets/img/color-sharp2.png";
 import 'animate.css';
 import TrackVisibility from 'react-on-screen';
 
@@ -99,7 +98,6 @@ export const Projects = () => {
           </Col>
         </Row>
       </Container>
-      <img className="background-image-right" src={colorSharp2} alt="background" />
     </section>
   );
 };
