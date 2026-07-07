@@ -14,6 +14,8 @@ export const Projects = () => {
       title: "TIDE-Y",
       description: "Raspberry Pi 5 · YOLOv8 · 6DOF Robotic Arm",
       icon: Robot,
+      // TODO(Khent): drop a real photo or GIF of the robot in src/assets/img and pass it as imgUrl here.
+      placeholderLabel: "Robot photo/GIF coming soon",
     },
     {
       title: "Sagip Pilipinas",

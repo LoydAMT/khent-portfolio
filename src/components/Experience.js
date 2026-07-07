@@ -6,7 +6,8 @@ import TrackVisibility from 'react-on-screen';
 export const Experience = () => {
   const experience = [
     {
-      role: "Freelance Full Stack Developer",
+      // TODO(Khent): replace "Healthcare Client" with the real client/company name if you're able to disclose it.
+      role: "Freelance Full Stack Developer — Healthcare Client (EHR System)",
       period: "October 2025 – May 2026",
       points: [
         "Architected and developed a comprehensive Electronic Health Record (EHR) System using Python Django, focusing on secure management of patient records, medical histories, and clinical visit data.",
@@ -45,6 +46,7 @@ export const Experience = () => {
                     A track record of shipping secure, real-world software - from HIPAA-compliant health
                     records systems to digital marketing operations.
                   </p>
+                  <h3 className="timeline-group-label">Experience</h3>
                   <div className="timeline">
                     {experience.map((item, index) => (
                       <div className="timeline-item" key={index}>
@@ -62,8 +64,12 @@ export const Experience = () => {
                         </div>
                       </div>
                     ))}
+                  </div>
+
+                  <h3 className="timeline-group-label">Education</h3>
+                  <div className="timeline timeline-education">
                     <div className="timeline-item">
-                      <div className="timeline-icon">
+                      <div className="timeline-icon timeline-icon-education">
                         <MortarboardFill size={20} />
                       </div>
                       <div className="timeline-content">

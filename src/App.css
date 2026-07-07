@@ -16,6 +16,11 @@
 }
 
 /************ Default Css ************/
+:root {
+  /* Sticky navbar height; keep in sync with NAV_HEIGHT in NavBar.js */
+  --nav-height: 90px;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -24,7 +29,32 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 75px;
+  scroll-padding-top: var(--nav-height);
+}
+
+/* Visible keyboard-focus ring for every interactive element, without adding
+   a ring on mouse/touch clicks. */
+:focus-visible {
+  outline: 2px solid #2563EB;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Respect prefers-reduced-motion everywhere: kill the animate.css reveal
+   animations, the hero skill-cube rotation, and smooth scrolling. The
+   marquee-specific override lives next to the marquee itself. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate__animated {
+    animation-duration: 0.001s !important;
+    animation-iteration-count: 1 !important;
+  }
+  .cube,
+  .cube-face {
+    transition: none !important;
+  }
 }
 
 body {
@@ -63,7 +93,7 @@ button {
   background-color: transparent;
 }
 
-input:focus, textarea:focus, select:focus {
+input:focus:not(:focus-visible), textarea:focus:not(:focus-visible), select:focus:not(:focus-visible) {
   outline: none;
 }
 
@@ -129,12 +159,18 @@ nav.navbar .navbar-nav .nav-link.navbar-link::after {
   transform-origin: left;
   transition: transform 0.3s ease;
 }
-nav.navbar .navbar-nav a.nav-link.navbar-link:hover,
+/* Hover only nudges opacity - it must NOT reuse the active link's
+   underline/color, otherwise a link stays visually "lit" from a lingering
+   :hover (e.g. the fixed navbar sitting under the cursor while the user
+   scrolls with a mouse wheel) at the same time the real active section is
+   also highlighted, reading as two active links at once. */
+nav.navbar .navbar-nav a.nav-link.navbar-link:hover {
+    opacity: 1;
+}
 nav.navbar .navbar-nav a.nav-link.navbar-link.active {
     opacity: 1;
     color: #0EA5E9 !important;
 }
-nav.navbar .navbar-nav a.nav-link.navbar-link:hover::after,
 nav.navbar .navbar-nav a.nav-link.navbar-link.active::after {
     transform: scaleX(1);
 }
@@ -228,8 +264,10 @@ span.navbar-text {
 }
 nav.navbar .navbar-toggler:active,
 nav.navbar .navbar-toggler:focus {
-	outline: none;
     box-shadow: none;
+}
+nav.navbar .navbar-toggler:focus:not(:focus-visible) {
+	outline: none;
 }
 nav.navbar .navbar-toggler-icon {
   width: 24px;
@@ -274,6 +312,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 
 /************ Banner Css ************/
 .banner {
+  scroll-margin-top: var(--nav-height);
   margin-top: 0;
   padding: 160px 0 100px 0;
   background-color: #ffffff;
@@ -318,28 +357,31 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   gap: 28px;
   margin-top: 50px;
 }
-.banner button {
-  color: #1a1a1a;
+/* Primary CTA - solid, so it clearly outranks the outline secondary CTA. */
+.banner-primary-btn {
+  color: #fff;
+  background: linear-gradient(90.21deg, #0EA5E9 -5.91%, #2563EB 111.58%);
   font-weight: 700;
-  font-size: 20px;
-  margin-top: 0;
+  font-size: 18px;
   letter-spacing: 0.8px;
-  display: flex;
+  padding: 14px 30px;
+  border-radius: 50px;
+  display: inline-flex;
   align-items: center;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.banner button:hover {
+.banner-primary-btn:hover {
   transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
 }
-.banner button svg {
-  font-size: 25px;
+.banner-primary-btn svg {
   margin-left: 10px;
   transition: 0.3s ease-in-out;
   line-height: 1;
-  color: #0EA5E9;
+  color: #fff;
 }
-.banner button:hover svg {
-  margin-left: 25px;
+.banner-primary-btn:hover svg {
+  margin-left: 18px;
 }
 .banner-secondary-btn {
   color: #2563EB;
@@ -359,10 +401,41 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   transform: translateY(-2px);
   box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
 }
-.banner img {
+.hero-photo {
+  position: relative;
   max-width: 340px;
   width: 100%;
   margin: 0 auto;
+  aspect-ratio: 1 / 1;
+}
+
+.hero-photo-backdrop {
+  position: absolute;
+  inset: -18px;
+  border-radius: 40px;
+  background: linear-gradient(135deg, #0EA5E9 -5.91%, #2563EB 111.58%);
+  opacity: 0.18;
+  filter: blur(18px);
+  transform: rotate(-4deg);
+  z-index: 0;
+}
+
+.hero-photo-frame {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 32px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 24px 48px rgba(37, 99, 235, 0.18), 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.hero-photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
 }
 .txt-rotate > .wrap {
@@ -431,6 +504,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 
 /* Skill Section */
 .skill {
+  scroll-margin-top: var(--nav-height);
   padding: 0 0 30px 0;
   position: relative;
 }
@@ -626,6 +700,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 
 /************ Projects Css ************/
 .project {
+  scroll-margin-top: var(--nav-height);
   padding: 80px 0;
   position: relative;
   overflow: hidden;
@@ -699,237 +774,174 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   color: #fff;
 }
 
-.proj-imgbx {
-  position: relative;
-  border-radius: 30px;
-  overflow: hidden;
+/* Uniform project card: 16:9 cover slot on top, content below - the same
+   structure whether a project has a screenshot or not (e.g. TIDE-Y). */
+.project-card-anchor {
+  display: block;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.project-card-col {
   margin-bottom: 24px;
-  width: 100%; /* Ensure it spans the full width available */
-  height: 300px; /* Set a fixed height to standardize card size */
   display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.project-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.proj-imgbx:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-}
-
-.proj-imgbx img {
-  object-fit: cover; /* Ensures the image scales correctly within the box */
-  width: 100%; /* Ensure the image covers the full width of the box */
-  height: 100%; /* Ensures the image fills the box height */
-  transition: transform 0.5s ease;
-}
-
-.proj-imgbx:hover img {
-  transform: scale(1.08);
-}
-
-.proj-imgbx:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-}
-
-.proj-imgbx::before {
-  content: "";
-  background: linear-gradient(90.21deg, #0EA5E9 -5.91%, #2563EB 111.58%);
-  opacity: 0.9;
-  position: absolute;
-  width: 100%;
-  height: 0;
-  transition: 0.4s ease-in-out;
-}
-
-.proj-imgbx:hover::before {
   height: 100%;
 }
 
-.proj-txtx {
-  position: absolute;
-  text-align: center;
-  top: 65%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  transition: 0.5s ease-in-out;
-  opacity: 0;
-  width: 100%;
-  color: #fff;
+.project-card-anchor:hover .project-card,
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
-.proj-imgbx:hover .proj-txtx {
-  top: 50%;
-  opacity: 1;
-  color: #fff;
-}
-
-.proj-txtx h4 {
-  font-size: 30px;
-  font-weight: 700;
-  letter-spacing: 0.8px;
-  line-height: 1.1em;
-}
-
-.proj-txtx span {
-  font-style: italic;
-  font-weight: 400;
-  font-size: 15px;
-  letter-spacing: 0.8px;
-}
-
-/* Fallback card for projects without a live screenshot (e.g. hardware/robotics builds) */
-.proj-imgbx.no-image {
-  background: linear-gradient(135deg, #0EA5E9 -5.91%, #2563EB 111.58%);
-  flex-direction: column;
-  gap: 16px;
-  cursor: default;
-}
-.proj-imgbx.no-image::before {
-  content: none;
-}
-.proj-imgbx.no-image .proj-fallback-icon {
-  color: rgba(255, 255, 255, 0.35);
-}
-.proj-imgbx.no-image .proj-txtx {
-  position: static;
-  transform: none;
-  opacity: 1;
-  padding: 0 24px;
-}
-
-
-/************ TechStack CSS ************/
-.tech-stack {
-  padding: 100px 0 50px 0;
+.project-card-media {
   position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
-  background-image:
-    radial-gradient(600px circle at 5% 10%, rgba(14, 165, 233, 0.10), transparent 60%),
-    radial-gradient(550px circle at 100% 90%, rgba(37, 99, 235, 0.08), transparent 60%);
-  background-repeat: no-repeat;
+  background: linear-gradient(135deg, #0EA5E9 -5.91%, #2563EB 111.58%);
 }
 
-.tech-stack-bx {
-  background-color: #ffffff;
-  background-image:
-    radial-gradient(500px circle at 0% 0%, rgba(37, 99, 235, 0.06), transparent 60%);
-  background-repeat: no-repeat;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
-  border-radius: 64px;
-  text-align: center;
-  padding: 60px 50px;
-  margin-top: -60px;
-  overflow: hidden;
+.project-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
-.tech-stack h2 {
-  font-size: 45px;
-  font-weight: 700;
-  color: #1a1a1a;
+.project-card-anchor:hover .project-card-media img,
+.project-card:hover .project-card-media img {
+  transform: scale(1.08);
 }
 
-.tech-stack p {
-  color: #555555;
-  font-size: 18px;
-  letter-spacing: 0.8px;
-  line-height: 1.5em;
-  margin: 14px 0 40px 0;
-}
-
-.tech-marquee {
+.project-card-placeholder {
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.85);
+  border: 1px dashed rgba(255, 255, 255, 0.4);
 }
 
-.tech-marquee-row {
+.project-card-placeholder span {
+  font-size: 13px;
+  font-style: italic;
+  letter-spacing: 0.3px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.project-card-body {
+  padding: 20px 22px 24px 22px;
+  text-align: left;
+}
+
+.project-card-body h4 {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #1a1a1a;
+  margin-bottom: 6px;
+}
+
+.project-card-body p {
+  font-size: 14px;
+  color: #666666;
+  letter-spacing: 0.3px;
+  line-height: 1.4em;
+}
+
+.project-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #2563EB;
+}
+
+
+/************ Skills tech strip (merged from the former Tech Stack section) ************/
+.skills-strip {
+  margin-top: 30px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
   overflow: hidden;
   width: 100%;
   -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
   mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
 }
 
-.tech-marquee-track {
+.skills-strip-track {
   display: flex;
+  align-items: center;
+  gap: 28px;
   width: max-content;
-  animation-name: marquee-left;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
+  animation: skills-strip-scroll 40s linear infinite;
 }
 
-.tech-marquee-row.direction-right .tech-marquee-track {
-  animation-name: marquee-right;
-}
-
-.tech-marquee-row:hover .tech-marquee-track {
+.skills-strip:hover .skills-strip-track {
   animation-play-state: paused;
 }
 
-@keyframes marquee-left {
+@keyframes skills-strip-scroll {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
 
-@keyframes marquee-right {
-  from { transform: translateX(-50%); }
-  to { transform: translateX(0); }
-}
-
-.tech-marquee .item {
-  color: #1a1a1a;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 120px;
+.strip-item {
   flex-shrink: 0;
 }
 
-.tech-icon-tile {
-  width: 68px;
-  height: 68px;
-  border-radius: 18px;
+.strip-icon-tile {
+  width: 48px;
+  height: 48px;
+  border-radius: 13px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 10px auto;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.tech-marquee .item:hover .tech-icon-tile {
-  transform: translateY(-6px) scale(1.05);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-}
-
-.tech-marquee .item h5 {
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.3px;
+.strip-item:hover .strip-icon-tile {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 768px) {
-  .tech-stack-bx {
-    padding: 40px 20px;
+  .strip-icon-tile {
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
   }
-  .tech-marquee .item {
-    width: 88px;
-  }
-  .tech-icon-tile {
-    width: 54px;
-    height: 54px;
-    border-radius: 14px;
-  }
-  .tech-marquee .item h5 {
-    font-size: 12.5px;
+  .skills-strip-track {
+    gap: 20px;
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .skills-strip-track {
+    animation: none;
+    overflow-x: auto;
+  }
+}
 
 /************ Experience Css ************/
 .experience {
+  scroll-margin-top: var(--nav-height);
   padding: 80px 0;
   position: relative;
   overflow: hidden;
@@ -956,10 +968,38 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   width: 60%;
 }
 
+.timeline-group-label {
+  max-width: 820px;
+  margin: 0 auto;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #2563EB;
+  padding-left: 72px;
+  margin-bottom: 16px;
+}
+
+.timeline-group-label:not(:first-of-type) {
+  margin-top: 44px;
+}
+
 .timeline {
   max-width: 820px;
   margin: 0 auto;
   position: relative;
+}
+
+/* Education gets its own terminal node instead of sharing the Experience
+   timeline rail, so a graduation date never reads as "after" a job that
+   ended later. */
+.timeline-education::before {
+  display: none;
+}
+
+.timeline-icon-education {
+  background: linear-gradient(90.21deg, #F59E0B -5.91%, #EA580C 111.58%);
+  box-shadow: 0 8px 20px rgba(234, 88, 12, 0.25);
 }
 
 .timeline::before {
@@ -1072,6 +1112,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 
 /************ Certifications Css ************/
 .certifications {
+  scroll-margin-top: var(--nav-height);
   padding: 60px 0 80px 0;
   position: relative;
   overflow: hidden;
@@ -1107,6 +1148,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 }
 
 .cert-card {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 14px;
@@ -1123,6 +1165,50 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   transform: translateY(-4px);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
   background: linear-gradient(90.21deg, #0EA5E9 -5.91%, #2563EB 111.58%);
+}
+
+/* Featured certs get the permanent blue treatment (instead of only on
+   hover) plus a badge, so the emphasis reads as a deliberate curation
+   choice rather than a stray hover state. */
+.cert-card.featured {
+  background: linear-gradient(90.21deg, #0EA5E9 -5.91%, #2563EB 111.58%);
+  border-color: transparent;
+  box-shadow: 0 10px 26px rgba(37, 99, 235, 0.22);
+}
+
+.cert-card.featured:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 34px rgba(37, 99, 235, 0.3);
+}
+
+.cert-card.featured .cert-card-icon {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+.cert-card.featured h5,
+.cert-card.featured .cert-issuer,
+.cert-card.featured .cert-date,
+.cert-card.featured .cert-card-link-icon {
+  color: #fff;
+}
+
+.cert-featured-badge {
+  position: absolute;
+  top: -10px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #1a1a1a;
+  color: #FCD34D;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 50px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .cert-card-icon {
@@ -1185,6 +1271,29 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 
 .cert-card:hover .cert-card-link-icon {
   color: #fff;
+}
+
+.certs-toggle {
+  display: block;
+  margin: 28px auto 0 auto;
+  padding: 12px 28px;
+  font-weight: 700;
+  font-size: 14.5px;
+  letter-spacing: 0.5px;
+  color: #2563EB;
+  border: 1px solid rgba(37, 99, 235, 0.35);
+  border-radius: 50px;
+  background: transparent;
+  cursor: pointer;
+  transition: 0.3s ease-in-out, transform 0.3s ease;
+}
+
+.certs-toggle:hover {
+  color: #fff;
+  border-color: transparent;
+  background: linear-gradient(90.21deg, #0EA5E9 -5.91%, #2563EB 111.58%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
 }
 
 @media (max-width: 768px) {

@@ -60,8 +60,8 @@ export const Banner = () => {
                     Cum Laude Computer Engineering graduate from Cebu Institute of Technology - University, based in Cebu City. I build secure, scalable applications with JavaScript, React, and Next.js, and pair that with a strong technical grasp of embedded systems and networking - from serverless AWS backends to autonomous robotics. I'm committed to solving real-world problems through clean, innovative code.
                   </p>
                   <div className="banner-cta">
-                    <button onClick={handleGmailConnect}>
-                      Let’s Connect <ArrowRightCircle size={25} />
+                    <button className="banner-primary-btn" onClick={handleGmailConnect}>
+                      Let’s Connect <ArrowRightCircle size={22} />
                     </button>
                     <a href="#experience" className="banner-secondary-btn">
                       View Experience
@@ -72,7 +72,20 @@ export const Banner = () => {
             </TrackVisibility>
           </Col>
           <Col xs={12} md={6} xl={5}>
-            <img src={headerImg} alt="Header Img" />
+            <div className="hero-photo">
+              <div className="hero-photo-backdrop" aria-hidden="true"></div>
+              {/* TODO(Khent): swap headerImg for a background-removed PNG/WebP cutout of this photo for a cleaner look */}
+              <div className="hero-photo-frame">
+                <img
+                  src={headerImg}
+                  alt="Khent Lloyd Cases smiling in graduation regalia, Cum Laude Computer Engineering graduate"
+                  width={480}
+                  height={480}
+                  loading="eager"
+                  fetchPriority="high"
+                />
+              </div>
+            </div>
           </Col>
         </Row>
       </Container>
