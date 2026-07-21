@@ -71,6 +71,54 @@ html {
   .cert-card-icon {
     animation: none !important;
   }
+  .paper-plane-wrap,
+  .paper-plane-trail-svg {
+    display: none !important;
+  }
+}
+
+/************ Paper plane easter egg ************/
+/* Position/rotation/the trail path are driven every frame from
+   PaperPlane.js (it walks a point + heading along an SVG path), so these
+   are just the visual look - the JS owns transform/d/gradient coords via
+   direct DOM writes. translate(-50%,-50%) centers the glyph on its
+   computed point instead of anchoring at the top-left. */
+.paper-plane-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.paper-plane-icon {
+  display: block;
+  color: var(--ink);
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.18));
+  transform-origin: center;
+  will-change: transform;
+}
+
+/* The trail is one continuous stroked path whose leading end is always
+   exactly the plane's current point (see TRAIL_SPAN in PaperPlane.js), so
+   it reads as attached at every heading instead of a gap-prone dot chain. */
+.paper-plane-trail-svg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.paper-plane-trail-path {
+  fill: none;
+  stroke: url(#paper-plane-trail-gradient);
+  stroke-width: 2.5px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 body {
