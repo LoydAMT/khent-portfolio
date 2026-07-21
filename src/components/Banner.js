@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import headerImg from "../assets/img/RED_2x2.png";
+import headerImg from "../assets/img/khent-cutout.png";
 import { ArrowRightCircle } from 'react-bootstrap-icons';
 import 'animate.css';
 import TrackVisibility from 'react-on-screen';
@@ -73,14 +73,12 @@ export const Banner = () => {
           </Col>
           <Col xs={12} md={6} xl={5}>
             <div className="hero-photo">
-              <div className="hero-photo-backdrop" aria-hidden="true"></div>
-              {/* TODO(Khent): swap headerImg for a background-removed PNG/WebP cutout of this photo for a cleaner look */}
               <div className="hero-photo-frame">
                 <img
                   src={headerImg}
                   alt="Khent Lloyd Cases smiling in graduation regalia, Cum Laude Computer Engineering graduate"
-                  width={480}
-                  height={480}
+                  width={300}
+                  height={287}
                   loading="eager"
                   fetchPriority="high"
                 />
