@@ -95,8 +95,9 @@ html {
 .paper-plane-icon {
   display: block;
   color: var(--ink);
-  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.18));
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.2));
   transform-origin: center;
+  transform-style: preserve-3d;
   will-change: transform;
 }
 
@@ -108,7 +109,10 @@ html {
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 9999;
+  /* Must clear the navbar's z-index (9999) too, not just match it - equal
+     z-index falls back to DOM order, and the navbar mounts after this, so
+     its frosted-glass background was painting over the trail. */
+  z-index: 10000;
   pointer-events: none;
   overflow: visible;
 }
