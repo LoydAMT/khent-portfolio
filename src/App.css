@@ -19,6 +19,14 @@
 :root {
   /* Sticky navbar height; keep in sync with NAV_HEIGHT in NavBar.js */
   --nav-height: 90px;
+
+  /* Monochrome palette - a single ink color carries every accent (buttons,
+     icons, badges, hover fills) instead of a colored gradient system. */
+  --ink: #0a0a0a;
+  --ink-soft: #1a1a1a;
+  --line: rgba(10, 10, 10, 0.1);
+  --line-soft: rgba(10, 10, 10, 0.06);
+  --tint: rgba(10, 10, 10, 0.05);
 }
 
 * {
@@ -35,7 +43,7 @@ html {
 /* Visible keyboard-focus ring for every interactive element, without adding
    a ring on mouse/touch clicks. */
 :focus-visible {
-  outline: 2px solid #2563EB;
+  outline: 2px solid var(--ink);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -54,6 +62,14 @@ html {
   .cube,
   .cube-face {
     transition: none !important;
+  }
+  .hero-photo-frame {
+    animation: none !important;
+  }
+  .skill-item-icon,
+  .timeline-icon,
+  .cert-card-icon {
+    animation: none !important;
   }
 }
 
@@ -111,6 +127,16 @@ p.success {
 p.danger {
 	color: red;
 }
+
+/* Shared 3D "pop-in" reveal for icon tiles - a quarter-turn flip driven by
+   the --pop-delay custom property each component sets per item, so a grid
+   of icons cascades in instead of appearing all at once. Runs once per
+   mount, gated behind the section's existing scroll-reveal wrapper. */
+@keyframes icon-pop-3d {
+  from { opacity: 0; transform: perspective(600px) rotateY(90deg) scale(0.6); }
+  to { opacity: 1; transform: perspective(600px) rotateY(0deg) scale(1); }
+}
+
 /************ Navbar Css ************/
 nav.navbar {
   padding: 18px 0;
@@ -154,7 +180,7 @@ nav.navbar .navbar-nav .nav-link.navbar-link::after {
   bottom: -2px;
   height: 2px;
   border-radius: 2px;
-  background: linear-gradient(90.21deg, #0EA5E9 -5.91%, #2563EB 111.58%);
+  background: var(--ink);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s ease;
@@ -169,7 +195,8 @@ nav.navbar .navbar-nav a.nav-link.navbar-link:hover {
 }
 nav.navbar .navbar-nav a.nav-link.navbar-link.active {
     opacity: 1;
-    color: #0EA5E9 !important;
+    color: #000 !important;
+    font-weight: 700;
 }
 nav.navbar .navbar-nav a.nav-link.navbar-link.active::after {
     transform: scaleX(1);
@@ -196,15 +223,15 @@ span.navbar-text {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .social-icon a:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 16px rgba(37, 99, 235, 0.25);
+    transform: perspective(300px) rotateY(180deg) translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 .social-icon a::before {
     content: "";
     width: 38px;
     height: 38px;
     position: absolute;
-    background: linear-gradient(90.21deg, #0EA5E9 -5.91%, #2563EB 111.58%);
+    background: var(--ink);
     border-radius: 50%;
     transform: scale(0);
 	transition: 0.3s ease-in-out;
@@ -222,6 +249,7 @@ span.navbar-text {
 }
 .social-icon a:hover img {
 	filter: brightness(0) saturate(100%) invert(100%);
+	transform: rotateY(180deg);
 }
 .navbar-text button {
   font-weight: 700;
@@ -244,7 +272,7 @@ span.navbar-text {
   width: 0%;
   height: 100%;
   position: absolute;
-  background: linear-gradient(90.21deg, #0EA5E9 -5.91%, #2563EB 111.58%);
+  background: var(--ink);
   left: 0;
   top: 0;
   z-index: 0;
@@ -253,8 +281,8 @@ span.navbar-text {
 .navbar-text button:hover {
   color: #fff;
   border-color: transparent;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
+  transform: perspective(400px) rotateX(-6deg) translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22);
 }
 .navbar-text button:hover::before {
 	content: "";
@@ -316,20 +344,16 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   margin-top: 0;
   padding: 160px 0 100px 0;
   background-color: #ffffff;
-  background-image:
-    radial-gradient(650px circle at 90% -10%, rgba(14, 165, 233, 0.16), transparent 60%),
-    radial-gradient(500px circle at -5% 95%, rgba(37, 99, 235, 0.10), transparent 60%);
-  background-repeat: no-repeat;
   position: relative;
   overflow: hidden;
 }
 .banner .tagline {
   font-weight: 700;
   letter-spacing: 0.8px;
-  padding: 8px 10px;
-  background: linear-gradient(90.21deg, rgba(14, 165, 233, 0.12) -5.91%, rgba(37, 99, 235, 0.12) 111.58%);
-  border: 1px solid rgba(37, 99, 235, 0.3);
-  color: #2563EB;
+  padding: 8px 14px;
+  background: transparent;
+  border: 1.5px solid var(--ink);
+  color: var(--ink);
   font-size: 20px;
   margin-bottom: 16px;
   display: inline-block;
@@ -357,10 +381,10 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   gap: 28px;
   margin-top: 50px;
 }
-/* Primary CTA - solid, so it clearly outranks the outline secondary CTA. */
+/* Primary CTA - solid ink, so it clearly outranks the outline secondary CTA. */
 .banner-primary-btn {
   color: #fff;
-  background: linear-gradient(90.21deg, #0EA5E9 -5.91%, #2563EB 111.58%);
+  background: var(--ink);
   font-weight: 700;
   font-size: 18px;
   letter-spacing: 0.8px;
@@ -371,8 +395,8 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .banner-primary-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+  transform: perspective(600px) rotateX(-6deg) translateY(-2px);
+  box-shadow: 0 14px 24px rgba(0, 0, 0, 0.28);
 }
 .banner-primary-btn svg {
   margin-left: 10px;
@@ -384,12 +408,12 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   margin-left: 18px;
 }
 .banner-secondary-btn {
-  color: #2563EB;
+  color: var(--ink);
   font-weight: 700;
   font-size: 18px;
   letter-spacing: 0.8px;
   padding: 14px 28px;
-  border: 1px solid rgba(37, 99, 235, 0.35);
+  border: 1.5px solid var(--ink);
   border-radius: 50px;
   transition: 0.3s ease-in-out, transform 0.3s ease;
   display: inline-block;
@@ -397,9 +421,9 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 .banner-secondary-btn:hover {
   color: #fff;
   border-color: transparent;
-  background: linear-gradient(90.21deg, #0EA5E9 -5.91%, #2563EB 111.58%);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
+  background: var(--ink);
+  transform: perspective(600px) rotateX(-6deg) translateY(-2px);
+  box-shadow: 0 14px 24px rgba(0, 0, 0, 0.22);
 }
 .hero-photo {
   position: relative;
@@ -407,15 +431,16 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   width: 100%;
   margin: 0 auto;
   aspect-ratio: 1 / 1;
+  perspective: 1000px;
 }
 
 .hero-photo-backdrop {
   position: absolute;
   inset: -18px;
   border-radius: 40px;
-  background: linear-gradient(135deg, #0EA5E9 -5.91%, #2563EB 111.58%);
-  opacity: 0.18;
-  filter: blur(18px);
+  background: var(--ink);
+  opacity: 0.08;
+  filter: blur(20px);
   transform: rotate(-4deg);
   z-index: 0;
 }
@@ -428,8 +453,17 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   border-radius: 32px;
   overflow: hidden;
   background: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 24px 48px rgba(37, 99, 235, 0.18), 0 4px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.16), 0 4px 12px rgba(0, 0, 0, 0.06);
+  transform-style: preserve-3d;
+  animation: hero-photo-float 7s ease-in-out infinite;
+}
+
+@keyframes hero-photo-float {
+  0%, 100% { transform: rotateY(0deg) rotateX(0deg) translateY(0); }
+  25% { transform: rotateY(5deg) rotateX(-2deg) translateY(-8px); }
+  50% { transform: rotateY(0deg) rotateX(2deg) translateY(0); }
+  75% { transform: rotateY(-5deg) rotateX(-2deg) translateY(-8px); }
 }
 
 .hero-photo-frame img {
@@ -468,15 +502,11 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   backface-visibility: hidden;
   font-size: clamp(22px, 3.4vw, 38px); /* Scales down so longer titles keep fitting on one line */
-  color: #2563EB;
+  color: var(--ink);
 
   white-space: nowrap; /* Prevent text wrapping */
   overflow: hidden; /* Hide overflow if text is too long */
   padding-left: 10px; /* Add some padding to align text properly */
-}
-
-.cube-face.active {
-  color: #0EA5E9; /* Keep active face text on-brand */
 }
 
 @media (max-width: 768px) {
@@ -511,10 +541,6 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 
 .skill-bx {
   background-color: #ffffff;
-  background-image:
-    radial-gradient(500px circle at 100% 0%, rgba(14, 165, 233, 0.08), transparent 60%),
-    radial-gradient(450px circle at 0% 100%, rgba(37, 99, 235, 0.06), transparent 60%);
-  background-repeat: no-repeat;
   border: 1px solid rgba(0, 0, 0, 0.06);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
   border-radius: 46px;
@@ -558,10 +584,11 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   padding: 18px 16px;
   border-radius: 14px;
   text-align: center;
-  color: #2563EB;
+  color: var(--ink);
   position: relative;
   overflow: hidden; /* Hide overflowing elements */
   transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease; /* Smooth hover effect */
+  transform-style: preserve-3d;
 }
 
 .skill-item-icon {
@@ -572,9 +599,11 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   align-items: center;
   justify-content: center;
   margin: 0 auto 10px auto;
-  background: linear-gradient(90.21deg, rgba(14, 165, 233, 0.12) -5.91%, rgba(37, 99, 235, 0.12) 111.58%);
-  color: #2563EB;
+  background: var(--tint);
+  color: var(--ink);
   transition: background 0.3s ease, color 0.3s ease;
+  animation: icon-pop-3d 0.5s ease both;
+  animation-delay: var(--pop-delay, 0ms);
 }
 
 .skill-item h5 {
@@ -603,9 +632,9 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   font-size: 11.5px;
   font-weight: 500;
   letter-spacing: 0.3px;
-  color: #2563EB;
-  background: rgba(37, 99, 235, 0.08);
-  border: 1px solid rgba(37, 99, 235, 0.18);
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--line);
   padding: 4px 10px;
   border-radius: 50px;
   transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
@@ -622,9 +651,9 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 }
 
 .skill-item:hover {
-  transform: translateY(-10px); /* Move up on hover */
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08); /* Add shadow for emphasis */
-  background: linear-gradient(90.21deg, #0EA5E9 -5.91%, #2563EB 111.58%);
+  transform: perspective(700px) rotateX(6deg) rotateY(-6deg) translateY(-8px); /* 3D tilt + lift on hover */
+  box-shadow: 0 18px 32px rgba(0, 0, 0, 0.22);
+  background: var(--ink);
 }
 
 .skill-item:hover h5 {
@@ -704,10 +733,6 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   padding: 80px 0;
   position: relative;
   overflow: hidden;
-  background-image:
-    radial-gradient(600px circle at 95% 10%, rgba(14, 165, 233, 0.10), transparent 60%),
-    radial-gradient(550px circle at 0% 90%, rgba(37, 99, 235, 0.08), transparent 60%);
-  background-repeat: no-repeat;
 }
 
 .project h2 {
@@ -759,7 +784,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   position: absolute;
   width: 0;
   height: 100%;
-  background: linear-gradient(90.21deg, #0EA5E9 -5.91%, #2563EB 111.58%);
+  background: var(--ink);
   top: 0;
   left: 0;
   z-index: -1;
@@ -796,12 +821,13 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   height: 100%;
+  transform-style: preserve-3d;
 }
 
 .project-card-anchor:hover .project-card,
 .project-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  transform: perspective(1000px) rotateX(4deg) rotateY(-4deg) translateY(-6px);
+  box-shadow: 0 24px 44px rgba(0, 0, 0, 0.18);
 }
 
 .project-card-media {
@@ -809,7 +835,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  background: linear-gradient(135deg, #0EA5E9 -5.91%, #2563EB 111.58%);
+  background: var(--ink);
 }
 
 .project-card-media img {
@@ -833,7 +859,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   justify-content: center;
   gap: 10px;
   color: rgba(255, 255, 255, 0.85);
-  border: 1px dashed rgba(255, 255, 255, 0.4);
+  border: 1px dashed rgba(255, 255, 255, 0.3);
 }
 
 .project-card-placeholder span {
@@ -870,7 +896,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   margin-top: 12px;
   font-size: 13.5px;
   font-weight: 700;
-  color: #2563EB;
+  color: var(--ink);
 }
 
 
@@ -913,12 +939,13 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.6s ease, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
 }
 
 .strip-item:hover .strip-icon-tile {
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transform: perspective(500px) rotateY(360deg) translateY(-4px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
 @media (max-width: 768px) {
@@ -945,10 +972,6 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   padding: 80px 0;
   position: relative;
   overflow: hidden;
-  background-image:
-    radial-gradient(600px circle at 92% 5%, rgba(14, 165, 233, 0.10), transparent 60%),
-    radial-gradient(500px circle at 2% 85%, rgba(37, 99, 235, 0.08), transparent 60%);
-  background-repeat: no-repeat;
 }
 
 .experience h2 {
@@ -975,7 +998,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #2563EB;
+  color: var(--ink);
   padding-left: 72px;
   margin-bottom: 16px;
 }
@@ -998,8 +1021,8 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 }
 
 .timeline-icon-education {
-  background: linear-gradient(90.21deg, #F59E0B -5.91%, #EA580C 111.58%);
-  box-shadow: 0 8px 20px rgba(234, 88, 12, 0.25);
+  background: var(--ink);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
 .timeline::before {
@@ -1009,8 +1032,8 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   bottom: 6px;
   left: 23px;
   width: 2px;
-  background: linear-gradient(180deg, #0EA5E9 -5.91%, #2563EB 111.58%);
-  opacity: 0.25;
+  background: var(--ink);
+  opacity: 0.15;
 }
 
 .timeline-item {
@@ -1032,11 +1055,13 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(90.21deg, #0EA5E9 -5.91%, #2563EB 111.58%);
+  background: var(--ink);
   color: #fff;
-  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
   position: relative;
   z-index: 1;
+  animation: icon-pop-3d 0.5s ease both;
+  animation-delay: var(--pop-delay, 0ms);
 }
 
 .timeline-content {
@@ -1047,11 +1072,12 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   padding: 28px 32px;
   flex: 1;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
 }
 
 .timeline-content:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+  transform: perspective(1200px) rotateX(2deg) translateY(-4px);
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.1);
 }
 
 .timeline-period {
@@ -1060,8 +1086,8 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   font-size: 13px;
   letter-spacing: 0.8px;
   text-transform: uppercase;
-  color: #2563EB;
-  background: linear-gradient(90.21deg, rgba(14, 165, 233, 0.1) -5.91%, rgba(37, 99, 235, 0.1) 111.58%);
+  color: var(--ink);
+  background: var(--tint);
   padding: 4px 12px;
   border-radius: 50px;
   margin-bottom: 10px;
@@ -1116,10 +1142,6 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   padding: 60px 0 80px 0;
   position: relative;
   overflow: hidden;
-  background-image:
-    radial-gradient(550px circle at 3% 15%, rgba(14, 165, 233, 0.10), transparent 60%),
-    radial-gradient(500px circle at 98% 95%, rgba(37, 99, 235, 0.08), transparent 60%);
-  background-repeat: no-repeat;
 }
 
 .certifications h2 {
@@ -1159,26 +1181,27 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   padding: 16px 18px;
   text-decoration: none;
   transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  transform-style: preserve-3d;
 }
 
 .cert-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
-  background: linear-gradient(90.21deg, #0EA5E9 -5.91%, #2563EB 111.58%);
+  transform: perspective(900px) rotateX(4deg) rotateY(-3deg) translateY(-4px);
+  box-shadow: 0 18px 32px rgba(0, 0, 0, 0.16);
+  background: var(--ink);
 }
 
-/* Featured certs get the permanent blue treatment (instead of only on
+/* Featured certs get the permanent ink treatment (instead of only on
    hover) plus a badge, so the emphasis reads as a deliberate curation
    choice rather than a stray hover state. */
 .cert-card.featured {
-  background: linear-gradient(90.21deg, #0EA5E9 -5.91%, #2563EB 111.58%);
+  background: var(--ink);
   border-color: transparent;
-  box-shadow: 0 10px 26px rgba(37, 99, 235, 0.22);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.24);
 }
 
 .cert-card.featured:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 18px 34px rgba(37, 99, 235, 0.3);
+  transform: perspective(900px) rotateX(4deg) rotateY(-3deg) translateY(-4px);
+  box-shadow: 0 20px 36px rgba(0, 0, 0, 0.32);
 }
 
 .cert-card.featured .cert-card-icon {
@@ -1200,8 +1223,8 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  background: #1a1a1a;
-  color: #FCD34D;
+  background: #ffffff;
+  color: var(--ink);
   font-size: 10.5px;
   font-weight: 700;
   letter-spacing: 0.5px;
@@ -1219,9 +1242,11 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(90.21deg, rgba(14, 165, 233, 0.12) -5.91%, rgba(37, 99, 235, 0.12) 111.58%);
-  color: #2563EB;
+  background: var(--tint);
+  color: var(--ink);
   transition: background 0.3s ease, color 0.3s ease;
+  animation: icon-pop-3d 0.5s ease both;
+  animation-delay: var(--pop-delay, 0ms);
 }
 
 .cert-card:hover .cert-card-icon {
@@ -1280,8 +1305,8 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   font-weight: 700;
   font-size: 14.5px;
   letter-spacing: 0.5px;
-  color: #2563EB;
-  border: 1px solid rgba(37, 99, 235, 0.35);
+  color: var(--ink);
+  border: 1.5px solid var(--ink);
   border-radius: 50px;
   background: transparent;
   cursor: pointer;
@@ -1291,9 +1316,9 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 .certs-toggle:hover {
   color: #fff;
   border-color: transparent;
-  background: linear-gradient(90.21deg, #0EA5E9 -5.91%, #2563EB 111.58%);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
+  background: var(--ink);
+  transform: perspective(500px) rotateX(-6deg) translateY(-2px);
+  box-shadow: 0 12px 22px rgba(0, 0, 0, 0.22);
 }
 
 @media (max-width: 768px) {
@@ -1311,7 +1336,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   color: #1a1a1a; /* Adjust text color for visibility */
   min-height: 100vh;
   background-color: #f7f7f9;
-  background-image: radial-gradient(rgba(37, 99, 235, 0.14) 1px, transparent 1.5px);
+  background-image: radial-gradient(rgba(10, 10, 10, 0.1) 1px, transparent 1.5px);
   background-size: 26px 26px;
 }
 
@@ -1319,8 +1344,6 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 .footer {
   padding: 50px 0;
   background-color: #ffffff;
-  background-image: radial-gradient(500px circle at 90% 100%, rgba(14, 165, 233, 0.08), transparent 60%);
-  background-repeat: no-repeat;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
   position: relative;
   overflow: hidden;

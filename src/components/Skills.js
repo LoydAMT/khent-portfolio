@@ -1,4 +1,4 @@
-import { CodeSlash, HddNetwork, CloudFill, Cpu, Database, Git } from "react-bootstrap-icons";
+import { CodeSlash, HddNetwork, CloudFill, Cpu, Database, Git, LightningFill } from "react-bootstrap-icons";
 import {
   SiReact,
   SiNextdotjs,
@@ -47,6 +47,12 @@ const skillCategories = [
     title: "Embedded Systems",
     blurb: "Hardware-integrated robotics and computer-vision projects.",
     tags: ["Raspberry Pi 5", "C", "C++", "YOLOv8"],
+  },
+  {
+    icon: LightningFill,
+    title: "Industrial Automation",
+    blurb: "Process monitoring, control, and plant-floor system integration.",
+    tags: ["PLC", "SCADA", "HMI", "VFD", "Profinet", "Modbus", "Ethernet/IP"],
   },
   {
     icon: Database,
@@ -120,8 +126,8 @@ export const Skills = () => {
                     <h2>Skills</h2>
                     <p>A snapshot of the languages, frameworks, and platforms I reach for most, organized by where they sit in the stack.</p>
                     <div className="skills-grid">
-                      {skillCategories.map(({ icon: Icon, title, blurb, tags }) => (
-                        <div className="skill-item" key={title}>
+                      {skillCategories.map(({ icon: Icon, title, blurb, tags }, index) => (
+                        <div className="skill-item" style={{ '--pop-delay': `${index * 70}ms` }} key={title}>
                           <div className="skill-item-icon">
                             <Icon size={24} />
                           </div>

@@ -5,7 +5,7 @@ import { ArrowRightCircle } from 'react-bootstrap-icons';
 import 'animate.css';
 import TrackVisibility from 'react-on-screen';
 
-const skills = ["Computer Engineer", "Full Stack Developer", "Embedded Systems Builder"];
+const skills = ["Computer Engineer", "Automations Engineer", "Full Stack Developer", "Embedded Systems Builder"];
 const rotationDuration = 2000; // Duration for each rotation in milliseconds
 
 export const Banner = () => {
@@ -57,7 +57,7 @@ export const Banner = () => {
                     </div>
                   </h1>
                   <p>
-                    Cum Laude Computer Engineering graduate from Cebu Institute of Technology - University, based in Cebu City. I build secure, scalable applications with JavaScript, React, and Next.js, and pair that with a strong technical grasp of embedded systems and networking - from serverless AWS backends to autonomous robotics. I'm committed to solving real-world problems through clean, innovative code.
+                    Cum Laude Computer Engineering graduate from Cebu Institute of Technology - University, based in Cebu City. I build secure, scalable applications with JavaScript, React, and Next.js, complemented by hands-on experience in industrial automation, embedded systems, and networking - from PLC/SCADA process control to serverless AWS backends and autonomous robotics. I'm committed to solving real-world problems through clean, innovative code.
                   </p>
                   <div className="banner-cta">
                     <button className="banner-primary-btn" onClick={handleGmailConnect}>

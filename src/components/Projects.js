@@ -1,8 +1,9 @@
 import { Container, Row, Col, Tab, Nav } from "react-bootstrap";
 import { ProjectCard } from "./ProjectCard";
-import { Robot, PatchQuestion, FileEarmarkText } from "react-bootstrap-icons";
+import { Robot, PatchQuestion, FileEarmarkText, Kanban } from "react-bootstrap-icons";
 import sagipImg from "../assets/img/project-sagip.jpg";
 import swiftSailImg from "../assets/img/project-swiftsail.jpg";
+import instrubyteImg from "../assets/img/project-instrubyte.jpg";
 import gourmetImg from "../assets/img/project-gourmet.jpg";
 import weatherImg from "../assets/img/project-weather.jpg";
 import 'animate.css';
@@ -10,6 +11,24 @@ import TrackVisibility from 'react-on-screen';
 
 export const Projects = () => {
   const featured = [
+    {
+      title: "Swift Sail",
+      description: "React.js · JavaScript · Lead Developer",
+      imgUrl: swiftSailImg,
+      url: "https://swiftsail-ferries.vercel.app/",
+    },
+    {
+      title: "InstruByte",
+      description: "Next.js · Automation Engineering Services · Quotation System",
+      imgUrl: instrubyteImg,
+      url: "https://instrubyte.com.ph/",
+    },
+    {
+      title: "IEES CRM",
+      description: "Next.js · TypeScript · Supabase · Workspace & CRM Platform",
+      icon: Kanban,
+      url: "https://ieescrm.vercel.app/",
+    },
     {
       title: "TIDE-Y",
       description: "Raspberry Pi 5 · YOLOv8 · 6DOF Robotic Arm",
@@ -22,12 +41,6 @@ export const Projects = () => {
       description: "Next.js · TypeScript · Tailwind CSS",
       imgUrl: sagipImg,
       url: "https://sagip-pilipinas.vercel.app/",
-    },
-    {
-      title: "Swift Sail",
-      description: "React.js · JavaScript · Lead Developer",
-      imgUrl: swiftSailImg,
-      url: "https://swiftsail-ferries.vercel.app/",
     },
   ];
 

@@ -108,7 +108,7 @@ export const Certifications = () => {
                     Continuous learning across cloud, data, and professional development.
                   </p>
                   <div className="certs-grid">
-                    {visibleCerts.map((cert) => (
+                    {visibleCerts.map((cert, index) => (
                       <a
                         className={`cert-card ${cert.featured ? "featured" : ""}`}
                         href={cert.file}
@@ -121,7 +121,7 @@ export const Certifications = () => {
                             <StarFill size={10} /> Featured
                           </span>
                         )}
-                        <div className="cert-card-icon">
+                        <div className="cert-card-icon" style={{ '--pop-delay': `${(index % DEFAULT_VISIBLE_COUNT) * 60}ms` }}>
                           <AwardFill size={20} />
                         </div>
                         <div className="cert-card-body">
